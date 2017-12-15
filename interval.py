@@ -366,8 +366,22 @@ class Interval:
             between = '..'
             lbchar = '[' if self.lower_closed else '('
             ubchar = ']' if self.upper_closed else ')'
-            lstr = '.' if self.lower_bound == -Inf else repr(self.lower_bound)
-            ustr = '.' if self.upper_bound == Inf else repr(self.upper_bound)
+            if self.lower_bound == -Inf:
+                lstr = ""
+                between = "..."
+            else:
+                lstr = repr(self.lower_bound)
+                
+            if self.upper_closed:
+                ubchar = ']'
+            else:
+                ubchar = ')'
+                
+            if self.upper_bound == Inf:
+                ustr = ""
+                between = "..."
+            else:
+                ustr = repr(self.upper_bound)
             return "".join([lbchar, lstr, between, ustr, ubchar])
 
     def __bool__(self):
@@ -1652,7 +1666,7 @@ class BaseIntervalSet(object):
         >>> IntervalSet([3, 4, 5]) != [3, 4, 5, 3]
         True
         """
-        return self != other
+        return not (self == other)
 
     def __lt__(self, other):
         """Tests if the given operand is a subset of the object
@@ -1990,8 +2004,7 @@ class IntervalSet(BaseIntervalSet):
         >>> IntervalSet()
         IntervalSet([])
         >>> IntervalSet([2, 4])
-        IntervalSet([Interval(2, 2, lower_closed=True, upper_closed=True),
-                     Interval(4, 4, lower_closed=True, upper_closed=True)])
+        IntervalSet([Interval(2, 2, lower_closed=True, upper_closed=True), Interval(4, 4, lower_closed=True, upper_closed=True)])
         """
         return "IntervalSet([%s])" % (
             ", ".join(repr(i) for i in self.intervals),)
@@ -2294,8 +2307,7 @@ class FrozenIntervalSet(BaseIntervalSet):
         >>> FrozenIntervalSet()
         FrozenIntervalSet([])
         >>> FrozenIntervalSet([2, 4])
-        FrozenIntervalSet([Interval(2, 2, lower_closed=True, upper_closed=True),
-                           Interval(4, 4, lower_closed=True, upper_closed=True)])
+        FrozenIntervalSet([Interval(2, 2, lower_closed=True, upper_closed=True), Interval(4, 4, lower_closed=True, upper_closed=True)])
         """
         return "FrozenIntervalSet([%s])" % (
             ", ".join(repr(i) for i in self.intervals),)
