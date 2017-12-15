@@ -45,6 +45,8 @@ True
 
 import copy
 
+__version__ = "1.1.0"
+
 
 class Smallest:
     """Represents the smallest value

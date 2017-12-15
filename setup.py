@@ -2,15 +2,16 @@ from distutils.core import setup
 
 setup(
     name="interval",
-    version="1.0.0",
+    version="1.1.0",
     description="Interval and IntervalSet Data Types",
     long_description="""
       Unlike the built-in sets, IntervalSets contain sets of Interval objects,
       which describe an interval of continuous values.  These IntervalSets can
-      be used in pretty much the same ways as set objects.""",
-    author="Jacob Page",
-    author_email="jacob.h.page@gmail.com",
-    url="http://members.cox.net/apoco/interval/",
+      be used in pretty much the same ways as set objects. Based on code by
+      Jacob Page.""",
+    author="Noah Spies",
+    author_email="",
+    url="https://github.com/nspies/interval",
     py_modules=["interval"],
     license="LGPL",
     classifiers=[
